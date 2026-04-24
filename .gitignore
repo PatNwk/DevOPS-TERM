@@ -1,0 +1,9 @@
+.DS_Store
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+venv/
+mongo_data/
+mysql_data/
+tp_DevOps/

@@ -53,7 +53,25 @@ jobs:
     steps: 
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Build the slack
+
+      - name: Create .env file
+        run: |
+          printf '%s\n' \
+            "ADMIN_MYSQL_PORT=${ADMIN_MYSQL_PORT}" \
+            "API_PORT=${API_PORT}" \
+            "ADMIN_MONGO_PORT=${ADMIN_MONGO_PORT}" \
+            "MONGO_EXPRESS_PASSWORD=${MONGO_EXPRESS_PASSWORD}" \
+            "MONGO_EXPRESS_URL=${MONGO_EXPRESS_URL}" \
+            "MONGO_EXPRESS_USERNAME=${MONGO_EXPRESS_USERNAME}" \
+            "MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}" \
+            "MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}" \
+            "MONGO_URI=${MONGO_URI}" \
+            "MYSQL_DATABASE=${MYSQL_DATABASE}" \
+            "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" \
+            "MYSQL_URL=${MYSQL_URL}" \
+            > .env
+
+      - name: Build the stack
         run: docker compose up -d
     env:
         ADMIN_MYSQL_PORT: ${{ secrets.ADMIN_MYSQL_PORT }}
@@ -68,4 +86,3 @@ jobs:
         MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
         MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
         MYSQL_URL: ${{ secrets.MYSQL_URL }} 
-

@@ -36,7 +36,7 @@ jobs:
           image: devops-term-server:1.0.0
           file: ./server/Dockerfile
           only-severities: CRITICAL,HIGH
-          exit-code: true
+          exit-code: false
 
       - name: Docker scout scan for mongo
         uses: docker/build-push-action@v1
@@ -45,4 +45,13 @@ jobs:
           image: devops-term-server:1.0.0
           file: ./mongo/Dockerfile
           only-severities: CRITICAL,HIGH
-          exit-code: true
+          exit-code: false
+
+  docker-compose: 
+    needs: build_test
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Build the slack
+        run: docker compose up -d

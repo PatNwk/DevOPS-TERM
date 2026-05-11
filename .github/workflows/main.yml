@@ -18,7 +18,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build image for server
-        run: docker build -t devops-term-server:1.0.0 -f ./server/Dockerfile ./server
+        run: docker build -t devops-term-server:1.0.0 -f ./server/Dockerfile .
 
       - name: Build image for mongo
-        run: docker build -t devops-term-mongo:1.0.0 -f ./mongo/Dockerfile ./mongo
+        run: docker build -t devops-term-mongo:1.0.0 -f ./mongo/Dockerfile .

@@ -73,6 +73,10 @@ jobs:
 
       - name: Build the stack
         run: docker compose up -d
+
+      - name: Show MySQL logs
+        if: always()
+        run: docker compose logs db_mysql
     env:
         ADMIN_MYSQL_PORT: ${{ secrets.ADMIN_MYSQL_PORT }}
         API_PORT: ${{ secrets.API_PORT }}

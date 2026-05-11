@@ -1,0 +1,24 @@
+name: Build and Test Application
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image for server
+        run: docker build -t devops-term-server:1.0.0 -f ./server/Dockerfile ./server
+
+      - name: Build image for mongo
+        run: docker build -t devops-term-mongo:1.0.0 -f ./mongo/Dockerfile ./mongo
